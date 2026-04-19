@@ -1,1 +1,111 @@
-<p>usuarios works!</p>
+<div class="container mt-4">
+  <h2 class="fw-bold mb-4">
+    <i class="bi bi-people-fill me-2 text-primary"></i>Gestión de Usuarios
+  </h2>
+
+  <!-- Mensaje -->
+  <div class="alert alert-{{ tipoMensaje }} alert-dismissible" *ngIf="mensaje">
+    <i class="bi bi-check-circle me-2"></i>{{ mensaje }}
+  </div>
+
+  <div class="row g-4">
+    <!-- Formulario -->
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">
+            <i class="bi bi-person-plus me-2"></i>
+            {{ editando ? 'Editar Usuario' : 'Nuevo Usuario' }}
+          </h5>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Nombre</label>
+              <input type="text" class="form-control"
+                [class.is-invalid]="usuarioForm.get('nombre')?.invalid && usuarioForm.get('nombre')?.touched"
+                formControlName="nombre" placeholder="Nombre completo"/>
+              <div class="invalid-feedback">El nombre es requerido.</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Email</label>
+              <input type="email" class="form-control"
+                [class.is-invalid]="usuarioForm.get('email')?.invalid && usuarioForm.get('email')?.touched"
+                formControlName="email" placeholder="correo@edu.com"/>
+              <div class="invalid-feedback">Email inválido.</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Contraseña</label>
+              <input type="password" class="form-control"
+                formControlName="password" placeholder="••••••••"/>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Rol</label>
+              <select class="form-select" formControlName="rol">
+                <option value="admin">👑 Administrador</option>
+                <option value="profesor">👨‍🏫 Profesor</option>
+                <option value="estudiante">🎓 Estudiante</option>
+              </select>
+            </div>
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary" [disabled]="usuarioForm.invalid">
+                <i class="bi bi-save me-1"></i>{{ editando ? 'Actualizar' : 'Guardar' }}
+              </button>
+              <button type="button" class="btn btn-outline-secondary" *ngIf="editando" (click)="cancelar()">
+                <i class="bi bi-x me-1"></i>Cancelar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabla -->
+    <div class="col-md-8">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white">
+          <h5 class="mb-0"><i class="bi bi-table me-2"></i>Lista de Usuarios</h5>
+        </div>
+        <div class="card-body p-0">
+          <div class="text-center p-4" *ngIf="cargando">
+            <div class="spinner-border text-primary"></div>
+          </div>
+          <table class="table table-hover mb-0" *ngIf="!cargando">
+            <thead class="table-light">
+              <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let u of usuarios" [appHighlight]="'#e8f4fd'">
+                <td>{{ u.id }}</td>
+                <td>{{ u.nombre }}</td>
+                <td>{{ u.email }}</td>
+                <td>
+                  <span class="badge"
+                    [class.bg-danger]="u.rol === 'admin'"
+                    [class.bg-success]="u.rol === 'profesor'"
+                    [class.bg-info]="u.rol === 'estudiante'">
+                    {{ u.rol | roleLabel }}
+                  </span>
+                </td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary me-1" (click)="editar(u)">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button class="btn btn-sm btn-outline-danger" (click)="eliminar(u.id!)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

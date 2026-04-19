@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Dashboard } from './dashboard/dashboard';
-import { Usuarios } from './usuarios/usuarios';
-import { Cursos } from './cursos/cursos';
+import { DashboardComponent } from './dashboard/dashboard';
+import { UsuariosComponent } from './usuarios/usuarios';
+import { CursosComponent } from './cursos/cursos';
 
 const routes: Routes = [
-  { path: 'dashboard', component: Dashboard },
-  { path: 'usuarios', component: Usuarios },
-  { path: 'cursos', component: Cursos },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'usuarios', component: UsuariosComponent },
+  { path: 'cursos', component: CursosComponent },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
 ];
 

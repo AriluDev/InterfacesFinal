@@ -7,14 +7,15 @@ import { AuthService } from '../../../services/auth';
 
 @Component({
   selector: 'app-login',
+  templateUrl: './login.html',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './login.html'
+  imports: [CommonModule, ReactiveFormsModule]
 })
 export class LoginComponent {
   loginForm: FormGroup;
   error: string = '';
   cargando: boolean = false;
+  mostrarPassword: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -27,12 +28,14 @@ export class LoginComponent {
     });
   }
 
+  togglePassword(): void {
+    this.mostrarPassword = !this.mostrarPassword;
+  }
+
   onSubmit(): void {
     if (this.loginForm.invalid) return;
-
     this.cargando = true;
     this.error = '';
-
     this.authService.login(this.loginForm.value).subscribe({
       next: (response) => {
         this.cargando = false;

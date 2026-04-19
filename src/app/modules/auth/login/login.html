@@ -12,10 +12,8 @@
     <div class="card-body p-4">
       <h5 class="text-center text-muted mb-4">Iniciar Sesión</h5>
 
-      <!-- Error alert -->
       <div class="alert alert-danger d-flex align-items-center" *ngIf="error">
-        <i class="bi bi-exclamation-circle-fill me-2"></i>
-        {{ error }}
+        <i class="bi bi-exclamation-circle-fill me-2"></i>{{ error }}
       </div>
 
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -35,27 +33,34 @@
           <div class="invalid-feedback">Ingresa un correo válido.</div>
         </div>
 
-        <!-- Password -->
+        <!-- Password con ojito -->
         <div class="mb-4">
           <label class="form-label fw-semibold">
             <i class="bi bi-lock me-1"></i>Contraseña
           </label>
-          <input
-            type="password"
-            class="form-control"
-            [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
-            formControlName="password"
-            placeholder="••••••••"
-          />
-          <div class="invalid-feedback">La contraseña debe tener al menos 4 caracteres.</div>
+          <div class="input-group">
+            <input
+              [type]="mostrarPassword ? 'text' : 'password'"
+              class="form-control"
+              [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+              formControlName="password"
+              placeholder="••••••••"
+            />
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              (click)="togglePassword()">
+              <i class="bi" [class.bi-eye]="!mostrarPassword" [class.bi-eye-slash]="mostrarPassword"></i>
+            </button>
+            <div class="invalid-feedback">La contraseña debe tener al menos 4 caracteres.</div>
+          </div>
         </div>
 
         <!-- Submit -->
         <button
           type="submit"
           class="btn btn-primary w-100 py-2 fw-semibold"
-          [disabled]="loginForm.invalid || cargando"
-        >
+          [disabled]="loginForm.invalid || cargando">
           <span *ngIf="cargando" class="spinner-border spinner-border-sm me-2"></span>
           <i class="bi bi-box-arrow-in-right me-2" *ngIf="!cargando"></i>
           {{ cargando ? 'Ingresando...' : 'Ingresar' }}
@@ -64,7 +69,7 @@
       </form>
     </div>
 
-    <!-- Footer con credenciales de prueba -->
+    <!-- Footer credenciales -->
     <div class="card-footer bg-light p-3">
       <small class="text-muted d-block text-center mb-2 fw-semibold">Credenciales de prueba:</small>
       <div class="row text-center g-1">

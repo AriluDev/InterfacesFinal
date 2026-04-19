@@ -21,6 +21,10 @@ export class UsuariosService {
     return this.http.get<Usuario>(`${this.apiUrl}/${id}`);
   }
 
+   getProfesores() {
+  return this.http.get<Usuario[]>(`${this.apiUrl}?rol=profesor`);
+  }
+
   create(usuario: Usuario): Observable<Usuario> {
     return this.http.post<Usuario>(this.apiUrl, usuario);
   }
@@ -32,4 +36,6 @@ export class UsuariosService {
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+ 
 }

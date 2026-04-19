@@ -20,6 +20,13 @@
       "email": "estudiante@edu.com",
       "password": "est123",
       "rol": "estudiante"
+    },
+    {
+      "nombre": "Fernando Medina",
+      "email": "Fernando@hotmail.com",
+      "password": "123456",
+      "rol": "profesor",
+      "id": 4
     }
   ],
   "cursos": [
@@ -49,10 +56,27 @@
       "profesor": "Prof. García",
       "creditos": 3,
       "estado": "inactivo"
+    },
+    {
+      "nombre": "Desarrollo de Intferfaces",
+      "descripcion": "Tecnologias Avanzadas para Desarrollar Software",
+      "profesorId": 2,
+      "profesor": "Prof. Fernando Medina",
+      "creditos": 3,
+      "estado": "activo",
+      "id": 4
     }
   ],
   "matriculas": [
-    { "id": 1, "estudianteId": 3, "cursoId": 1 },
-    { "id": 2, "estudianteId": 3, "cursoId": 2 }
+    {
+      "id": 1,
+      "estudianteId": 3,
+      "cursoId": 1
+    },
+    {
+      "id": 2,
+      "estudianteId": 3,
+      "cursoId": 2
+    }
   ]
 }

@@ -1,1 +1,106 @@
-<p>mis-cursos works!</p>
+<div class="container mt-4">
+  <h2 class="fw-bold mb-4">
+    <i class="bi bi-book-fill me-2 text-success"></i>Mis Cursos
+  </h2>
+
+  <div class="alert alert-{{ tipoMensaje }}" *ngIf="mensaje">
+    <i class="bi bi-check-circle me-2"></i>{{ mensaje }}
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-success text-white">
+          <h5 class="mb-0">
+            <i class="bi bi-plus-circle me-2"></i>
+            {{ editando ? 'Editar Curso' : 'Nuevo Curso' }}
+          </h5>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="cursoForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Nombre</label>
+              <input type="text" class="form-control"
+                [class.is-invalid]="cursoForm.get('nombre')?.invalid && cursoForm.get('nombre')?.touched"
+                formControlName="nombre" placeholder="Nombre del curso"/>
+              <div class="invalid-feedback">El nombre es requerido.</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Descripción</label>
+              <textarea class="form-control" rows="2"
+                formControlName="descripcion" placeholder="Descripción"></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Créditos</label>
+              <input type="number" class="form-control"
+                formControlName="creditos" min="1" max="6"/>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Estado</label>
+              <select class="form-select" formControlName="estado">
+                <option value="activo">✅ Activo</option>
+                <option value="inactivo">❌ Inactivo</option>
+              </select>
+            </div>
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-success" [disabled]="cursoForm.invalid">
+                <i class="bi bi-save me-1"></i>{{ editando ? 'Actualizar' : 'Guardar' }}
+              </button>
+              <button type="button" class="btn btn-outline-secondary" *ngIf="editando" (click)="cancelar()">
+                <i class="bi bi-x me-1"></i>Cancelar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white">
+          <h5 class="mb-0"><i class="bi bi-table me-2"></i>Mis Cursos Asignados</h5>
+        </div>
+        <div class="card-body p-0">
+          <div class="text-center p-4" *ngIf="cargando">
+            <div class="spinner-border text-success"></div>
+          </div>
+          <table class="table table-hover mb-0" *ngIf="!cargando">
+            <thead class="table-light">
+              <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Créditos</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let c of cursos" [appHighlight]="'#f0faf0'">
+                <td>{{ c.id }}</td>
+                <td>{{ c.nombre }}</td>
+                <td>{{ c.descripcion }}</td>
+                <td>{{ c.creditos }}</td>
+                <td>
+                  <span class="badge"
+                    [class.bg-success]="c.estado === 'activo'"
+                    [class.bg-secondary]="c.estado === 'inactivo'">
+                    {{ c.estado }}
+                  </span>
+                </td>
+                <td>
+                  <button class="btn btn-sm btn-outline-success me-1" (click)="editar(c)">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button class="btn btn-sm btn-outline-danger" (click)="eliminar(c.id!)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
