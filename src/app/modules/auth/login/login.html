@@ -1,0 +1,96 @@
+<div class="min-vh-100 d-flex align-items-center justify-content-center bg-light">
+  <div class="card shadow-lg border-0" style="width: 420px;">
+
+    <!-- Header -->
+    <div class="card-header bg-primary text-white text-center py-4">
+      <i class="bi bi-mortarboard-fill" style="font-size: 2.5rem;"></i>
+      <h3 class="mt-2 mb-0 fw-bold">EduManager</h3>
+      <small>Sistema de Gestión Educativa</small>
+    </div>
+
+    <!-- Body -->
+    <div class="card-body p-4">
+      <h5 class="text-center text-muted mb-4">Iniciar Sesión</h5>
+
+      <!-- Error alert -->
+      <div class="alert alert-danger d-flex align-items-center" *ngIf="error">
+        <i class="bi bi-exclamation-circle-fill me-2"></i>
+        {{ error }}
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+        <!-- Email -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">
+            <i class="bi bi-envelope me-1"></i>Correo electrónico
+          </label>
+          <input
+            type="email"
+            class="form-control"
+            [class.is-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+            formControlName="email"
+            placeholder="correo@edu.com"
+          />
+          <div class="invalid-feedback">Ingresa un correo válido.</div>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-4">
+          <label class="form-label fw-semibold">
+            <i class="bi bi-lock me-1"></i>Contraseña
+          </label>
+          <input
+            type="password"
+            class="form-control"
+            [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+            formControlName="password"
+            placeholder="••••••••"
+          />
+          <div class="invalid-feedback">La contraseña debe tener al menos 4 caracteres.</div>
+        </div>
+
+        <!-- Submit -->
+        <button
+          type="submit"
+          class="btn btn-primary w-100 py-2 fw-semibold"
+          [disabled]="loginForm.invalid || cargando"
+        >
+          <span *ngIf="cargando" class="spinner-border spinner-border-sm me-2"></span>
+          <i class="bi bi-box-arrow-in-right me-2" *ngIf="!cargando"></i>
+          {{ cargando ? 'Ingresando...' : 'Ingresar' }}
+        </button>
+
+      </form>
+    </div>
+
+    <!-- Footer con credenciales de prueba -->
+    <div class="card-footer bg-light p-3">
+      <small class="text-muted d-block text-center mb-2 fw-semibold">Credenciales de prueba:</small>
+      <div class="row text-center g-1">
+        <div class="col-4">
+          <span class="badge bg-danger w-100 p-2">
+            👑 Admin<br>
+            <small>admin@edu.com</small><br>
+            <small>admin123</small>
+          </span>
+        </div>
+        <div class="col-4">
+          <span class="badge bg-success w-100 p-2">
+            👨‍🏫 Profesor<br>
+            <small>profesor@edu.com</small><br>
+            <small>prof123</small>
+          </span>
+        </div>
+        <div class="col-4">
+          <span class="badge bg-info w-100 p-2">
+            🎓 Estudiante<br>
+            <small>estudiante@edu.com</small><br>
+            <small>est123</small>
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

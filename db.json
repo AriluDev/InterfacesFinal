@@ -1,0 +1,58 @@
+{
+  "usuarios": [
+    {
+      "id": 1,
+      "nombre": "Administrador",
+      "email": "admin@edu.com",
+      "password": "admin123",
+      "rol": "admin"
+    },
+    {
+      "id": 2,
+      "nombre": "Prof. García",
+      "email": "profesor@edu.com",
+      "password": "prof123",
+      "rol": "profesor"
+    },
+    {
+      "id": 3,
+      "nombre": "Juan Estudiante",
+      "email": "estudiante@edu.com",
+      "password": "est123",
+      "rol": "estudiante"
+    }
+  ],
+  "cursos": [
+    {
+      "id": 1,
+      "nombre": "Matemáticas Avanzadas",
+      "descripcion": "Cálculo diferencial e integral",
+      "profesorId": 2,
+      "profesor": "Prof. García",
+      "creditos": 4,
+      "estado": "activo"
+    },
+    {
+      "id": 2,
+      "nombre": "Programación Web",
+      "descripcion": "HTML, CSS, JavaScript y Angular",
+      "profesorId": 2,
+      "profesor": "Prof. García",
+      "creditos": 3,
+      "estado": "activo"
+    },
+    {
+      "id": 3,
+      "nombre": "Base de Datos",
+      "descripcion": "SQL y modelado relacional",
+      "profesorId": 2,
+      "profesor": "Prof. García",
+      "creditos": 3,
+      "estado": "inactivo"
+    }
+  ],
+  "matriculas": [
+    { "id": 1, "estudianteId": 3, "cursoId": 1 },
+    { "id": 2, "estudianteId": 3, "cursoId": 2 }
+  ]
+}

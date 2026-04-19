@@ -1,0 +1,74 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow" *ngIf="isAuthenticated()">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" href="#">
+      <i class="bi bi-mortarboard-fill me-2"></i>EduManager
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+
+        <!-- Admin links -->
+        <ng-container *ngIf="getRol() === 'admin'">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/admin/dashboard" routerLinkActive="active">
+              <i class="bi bi-speedometer2 me-1"></i>Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/admin/usuarios" routerLinkActive="active">
+              <i class="bi bi-people me-1"></i>Usuarios
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/admin/cursos" routerLinkActive="active">
+              <i class="bi bi-book me-1"></i>Cursos
+            </a>
+          </li>
+        </ng-container>
+
+        <!-- Profesor links -->
+        <ng-container *ngIf="getRol() === 'profesor'">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/profesor/dashboard" routerLinkActive="active">
+              <i class="bi bi-speedometer2 me-1"></i>Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/profesor/mis-cursos" routerLinkActive="active">
+              <i class="bi bi-book me-1"></i>Mis Cursos
+            </a>
+          </li>
+        </ng-container>
+
+        <!-- Estudiante links -->
+        <ng-container *ngIf="getRol() === 'estudiante'">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/estudiante/dashboard" routerLinkActive="active">
+              <i class="bi bi-speedometer2 me-1"></i>Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/estudiante/mis-cursos" routerLinkActive="active">
+              <i class="bi bi-book me-1"></i>Mis Cursos
+            </a>
+          </li>
+        </ng-container>
+
+      </ul>
+
+      <!-- Usuario info + logout -->
+      <div class="d-flex align-items-center gap-3">
+        <span class="text-white">
+          <i class="bi bi-person-circle me-1"></i>
+          {{ usuario?.nombre }}
+        </span>
+        <button class="btn btn-outline-light btn-sm" (click)="logout()">
+          <i class="bi bi-box-arrow-right me-1"></i>Salir
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
